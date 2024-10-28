@@ -1,20 +1,206 @@
+html {
+  height: 100%;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
   color: #333;
+  margin: 0;
+  height: 100%;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.loggerDiv {
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: lightgray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: lightgray;
+}
+
+.forgot-password {
+  margin-top: 15px;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.forgot-password a:hover {
+  color: #0056b3;
+}
+
+.sidenav {
+  min-width: 200px;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.flex-container {
+  display: flex;
+  margin: auto;
+}
+
+.gapper-goober {
+  gap: 1rem;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.Lflexchild {
+  flex: 1;
+  margin: 5px;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.searchbar {
+  width: 500px;
+}
+
+.Loverskrift2 {
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Loverskrift3 {
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Lcontent {
+  flex: 1;
+  background-color: #818181;
+  height: 200px;
+}
+.Lcontent1 {
+  flex: 1;
+  background-color: #818181;
+}
+
+.Lcontent2 {
+  flex: 1;
+  background-color: #818181;
+}
+
+.Lstack1 {
+  background-color: #818181;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 30px;
+}
+
+.Lstack2 {
+  background-color: #818181;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  height: 30px;
+}
+
+.Lstack3 {
+  background-color: #818181;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  height: 30px;
+}
+
+.Lstack4 {
+  background-color: #818181;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  height: 30px;
+}
+
+.Lstack5 {
+  background-color: #818181;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  height: 30px;
+}
+
+.lsettings {
+  margin-top: 500px;
+}
 .stackList {
   width: 80%;
   margin: 50px auto;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  height: max-content;
 }
 
 .stackList table {
@@ -140,4 +326,29 @@ select {
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jRow {
+  display: flex;
+  background-color: lightgray;
+}
+
+.jColumn {
+  flex: 50%;
+  border: solid;
+}
+
+.jbillede {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jprofilbillede {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: 25% 50% 25%;
+  border-radius: 50%;
+  border: solid;
 }
