@@ -23,7 +23,15 @@
             src="https://imageupscaler.com/wp-content/uploads/2024/07/deblured-cutty-fox.jpg"
             alt="Profilbillede"
           />
+          <button class="settings-btn" onclick="uploadProfilePicture()">🛠️</button>
         </div>
+        <input
+          type="file"
+          id="profile-upload"
+          style="display: none"
+          accept="image/*"
+          onchange="previewProfilePicture(event)"
+        />  
 
         <div class="jRow">
           <div class="jColumn"><p>Fornavn</p></div>
@@ -66,4 +74,23 @@
       </div>
     </div>
   </body>
+  <script>
+  function uploadProfilePicture() {
+    document.getElementById("profile-upload").click();
+  }
+  
+  function previewProfilePicture(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.querySelector(".jprofilbillede").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  </script>
+
 </html>
+
+
