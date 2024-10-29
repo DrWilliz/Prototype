@@ -20,7 +20,7 @@
         <div class="jbillede">
           <img
             class="jprofilbillede"
-            src="https://imageupscaler.com/wp-content/uploads/2024/07/deblured-cutty-fox.jpg"
+            src="/img/enhandsomemand.jpg"
             alt="Profilbillede"
           />
           <button class="settings-btn" onclick="uploadProfilePicture()">🛠️</button>
@@ -35,15 +35,15 @@
 
         <div class="jRow">
           <div class="jColumn"><p>Fornavn</p></div>
-          <div class="jColumn"></div>
+          <div class="jColumn"><p>Ben</p></div>
         </div>
         <div class="jRow">
           <div class="jColumn"><p>Efternavn</p></div>
-          <div class="jColumn"></div>
+          <div class="jColumn"><p>Johnson</p></div>
         </div>
         <div class="jRow">
           <div class="jColumn"><p>Mail</p></div>
-          <div class="jColumn"></div>
+          <div class="jColumn"><p>BenJohnson@gmail.com</p></div>
         </div>
         <div class="jRow">
           <div class="jColumn"><p>Ændre adgangskode</p></div>
@@ -51,8 +51,13 @@
         </div>
         <div class="jRow">
           <div class="jColumn"><p>Dark mode</p></div>
-          <div class="jColumn"></div>
-        </div>
+          <div class="jColumn">
+            <label class="switch">
+              <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+              <span class="slider"></span>
+            </label>
+          </div>
+          </div>
         <div class="jRow">
           <div class="jColumn"><p>Ændre profilbillede</p></div>
           <div class="jColumn"></div>
@@ -90,6 +95,18 @@
     }
   }
   </script>
+  <script>
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  document.body.classList.toggle("light-mode");
+}
+
+// Standardindstilling
+document.addEventListener("DOMContentLoaded", function() {
+  document.body.classList.add("light-mode"); // Starter i Light Mode
+});
+  </script>
+
 
 </html>
 
