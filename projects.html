@@ -3,64 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
     <link rel="stylesheet" href="style.css" />
     <script
       src="https://kit.fontawesome.com/fd8cdacde5.js"
       crossorigin="anonymous"
     ></script>
-    <script src="luana.js" defer></script>
-    <script src="scripts/xander.js" defer></script>
+
+    <title>Projects</title>
   </head>
   <body>
     <div class="flex-container h-100">
-      <!-- Side navigation -->
       <div class="sidenav">
         <div class="jimbojabbo">
           <img src="img/cubelab-icon-black.png" alt="Kubelab icon in Black" />
           <p>Kubelab</p>
         </div>
-        <a href="index.html" class="active">Home</a>
+        <a href="index.html">Home</a>
         <a href="profile.html">Profile</a>
-        <a href="projects.html">Projects</a>
+        <a href="projects.html" class="active">Projects</a>
         <a href="#">Notifications</a>
         <a href="login.html">Log out</a>
       </div>
-
-      <!-- Page content -->
       <div class="main">
-        <div class="flex-container">
-          <!-- <div>
-            <span onclick="openNav()">Menu</span>
-          </div> -->
-        </div>
         <div class="flex-container justify-boi">
-          <h2 class="Loverskrift2">Home</h2>
+          <h2 class="Loverskrift2">Projects</h2>
           <div class="icons">
             <button type="button" class="icon-button">
               <i class="fa-solid fa-bell"></i>
               <span class="icon-button__badge">2</span>
             </button>
-            <button type="button" class="icon-button">
+            <a href="profile.html" class="icon-button">
               <i class="fa-solid fa-user"></i>
-            </button>
+            </a>
           </div>
         </div>
-
-        <!-- <div class="flex-container" id="home-div">
-          <div class="Lcontent">
-            <figure class="charts">
-              <div class="pie"></div>
-              <figcaption class="legends">
-                <span>Available 6</span>
-                <span>Active 2</span>
-                <span>Inactive 2</span>
-              </figcaption>
-            </figure>
-          </div>
-          <div class="Lcontent"></div>
-          <div class="Lcontent"></div>
-        </div> -->
         <div class="stackList">
           <input
             type="text"
@@ -152,13 +128,7 @@
           </table>
         </div>
       </div>
-
-      <!-- 
-        
-        
-    </div>
-       -->
     </div>
   </body>
-  <footer></footer>
+  <script src="scripts/xander.js" defer></script>
 </html>
