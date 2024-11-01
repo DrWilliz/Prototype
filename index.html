@@ -11,6 +11,7 @@
     ></script>
     <script src="luana.js" defer></script>
     <script src="scripts/xander.js" defer></script>
+    <script src="scripts/mode.js" defer></script>
   </head>
   <body>
     <div class="flex-container h-100">
@@ -23,7 +24,7 @@
         <a href="index.html" class="active">Home</a>
         <a href="profile.html">Profile</a>
         <a href="projects.html">Projects</a>
-        <a href="#">Notifications</a>
+        <a href="notifications.html">Notifications</a>
         <a href="login.html">Log out</a>
       </div>
 
@@ -37,10 +38,10 @@
         <div class="flex-container justify-boi">
           <h2 class="Loverskrift2">Home</h2>
           <div class="icons">
-            <button type="button" class="icon-button">
+            <a href="notifications.html" class="icon-button">
               <i class="fa-solid fa-bell"></i>
               <span class="icon-button__badge">2</span>
-            </button>
+            </a>
             <button type="button" class="icon-button">
               <i class="fa-solid fa-user"></i>
             </button>
@@ -150,6 +151,12 @@
               </tr>
             </tbody>
           </table>
+          <div class="stack-button-div">
+            <a href="newproject.html" id="newStackButton">
+              <span class="button-text">New project</span>
+              <span class="button-icon"><i class="fa-solid fa-plus"></i></span>
+            </a>
+          </div>
         </div>
       </div>
 

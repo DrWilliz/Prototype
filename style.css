@@ -4,9 +4,34 @@
   --text-color: #111528;
   --secondary-text: #232738;
   --cta-color: #0071ff;
+  --cta-hover: #005eebe7;
   --accent-color: #3a435d;
-  --pie-tert: #d7d7d7;
+  --pie-tert: #c5c5c5;
   --tertiary-color: #333;
+}
+
+.darkmode {
+  --base-color: #1e1e1f;
+  --base-variant: #161616;
+  --text-color: #f1f1f1;
+  --secondary-text: #cccccc;
+  --cta-color: #0071ff;
+  --cta-hover: #005eebe7;
+  --accent-color: #3a435d;
+  --pie-tert: #c5c5c5;
+  --tertiary-color: #b4b1b1;
+}
+
+.deepmode {
+  --base-color: #1a0013;
+  --base-variant: deeppink;
+  --text-color: #ffffff;
+  --secondary-text: #e6d6d6;
+  --cta-color: deeppink;
+  --cta-hover: rgb(187, 9, 104);
+  --accent-color: rgb(59, 9, 36);
+  --pie-tert: #fdfdfd;
+  --tertiary-color: #ffffff;
 }
 
 * {
@@ -32,10 +57,59 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--secondary-text);
 }
 
 h2 {
   color: var(--tertiary-color);
+}
+
+#light-switch i:first-child {
+  display: block;
+}
+
+#light-switch i:last-child {
+  display: none;
+}
+
+#dark-switch i:first-child,
+#deep-switch i:first-child {
+  display: none;
+}
+
+.darkmode #light-switch i:first-child,
+#deep-switch i:first-child {
+  display: none;
+}
+
+.darkmode #light-switch i:last-child {
+  display: block;
+}
+
+.darkmode #dark-switch i:first-child {
+  display: block;
+}
+
+.darkmode #dark-switch i:last-child {
+  display: none;
+}
+
+.deepmode #dark-switch i:first-child,
+#light-switch i:first-child {
+  display: none;
+}
+
+.deepmode #dark-switch i:last-child,
+#light-switch i:last-child {
+  display: block;
+}
+
+.deepmode #deep-switch i:first-child {
+  display: block;
+}
+
+.deepmode #deep-switch i:last-child {
+  display: none;
 }
 
 .loggerDiv {
@@ -43,13 +117,13 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-color: var(--base-variant);
   font-family: Arial, sans-serif;
   margin: 0;
 }
 
 .login-container {
-  background-color: #fff;
+  background-color: var(--base-color);
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -61,14 +135,14 @@ h2 {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--pie-tert);
   border-radius: 5px;
 }
 
 .login-button {
   width: 100%;
   padding: 10px;
-  background-color: #000;
+  background-color: var(--cta-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -76,7 +150,7 @@ h2 {
 }
 
 .login-button:hover {
-  background-color: lightgray;
+  background-color: var(--cta-hover);
 }
 
 .forgot-password {
@@ -85,11 +159,11 @@ h2 {
 
 .forgot-password a {
   text-decoration: none;
-  color: #007bff;
+  color: var(--cta-color);
 }
 
 .forgot-password a:hover {
-  color: #0056b3;
+  color: var(--cta-hover);
 }
 
 .password-wrapper {
@@ -137,7 +211,6 @@ h2 {
   transition-duration: 200ms;
 }
 
-.active,
 .sidenav a:hover {
   background-color: var(--base-variant);
 }
@@ -183,11 +256,12 @@ h2 {
   justify-content: center;
   width: 50px;
   height: 50px;
-  color: #333333;
-  background: #dddddd;
+  color: var(--accent-color);
+  background: var(--pie-tert);
   border: none;
   outline: none;
   border-radius: 50%;
+  text-decoration: none;
 }
 
 .icon-button i {
@@ -199,7 +273,7 @@ h2 {
 }
 
 .icon-button:active {
-  background: #cccccc;
+  background: white;
 }
 
 .icon-button__badge {
@@ -209,7 +283,7 @@ h2 {
   width: 25px;
   height: 25px;
   background: red;
-  color: #ffffff;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -236,7 +310,7 @@ h2 {
 .Lflexchild {
   flex: 1;
   margin: 5px;
-  background-color: lightgray;
+  background-color: var(--base-variant);
   padding: 10px;
 }
 
@@ -359,7 +433,7 @@ h2 {
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--pie-tert);
   min-width: 5rem;
 }
 
@@ -372,7 +446,7 @@ td {
 }
 
 .clickable-row:hover {
-  background-color: #f0f0f0;
+  background-color: var(--base-variant);
 }
 
 .clickable-row {
@@ -413,7 +487,7 @@ td {
   width: 22px;
   left: 2px;
   bottom: 2px;
-  background-color: white;
+  background-color: var(--base-color);
   transition: 0.4s;
   border-radius: 50%;
 }
@@ -441,48 +515,56 @@ label {
 input[type="text"],
 select {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--pie-tert);
   border-radius: 4px;
 }
 
 #newStackButton {
-  padding: 10px;
-  background-color: #333;
+  display: inline-flex;
+  height: 2.25rem;
+  padding: 0;
+  background-color: var(--cta-color);
   color: white;
   border: none;
+  outline: none;
   border-radius: 4px;
+  overflow: hidden;
   cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 #newStackButton:hover {
-  background-color: #555;
+  background-color: var(--cta-hover);
+}
+
+.stack-button-div {
+  display: flex;
+  justify-content: end;
+}
+
+.button-text,
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: white;
+  height: 100%;
+  text-decoration: none;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .newStack {
   width: 25%;
   margin: 50px auto;
-  background-color: #fff;
+  background-color: var(--base-color);
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.jRow {
-  display: flex;
-  background-color: #333;
-  border-bottom: 1px solid #ddd;
-}
-
-.jRow p {
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  padding-left: 10px;
-}
-
-.jColumn {
-  flex: 50%;
-  border: solid;
-  border-left: 1px solid #ddd;
 }
 
 .profile-pic {
@@ -502,20 +584,41 @@ select {
   border: solid;
 }
 
-.profile-form label {
-  display: block;
+#profile-div {
+  gap: 2rem;
+  padding: 1rem;
+}
+
+#profile-div label {
   font-weight: 400;
+  font-size: 1rem;
 }
 
 .profile-form input {
-  margin: 0;
+  flex-grow: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.name-input,
+.email-input,
+.phone-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.profile-form label {
+  margin-right: 1rem;
+  font-weight: bold;
+  width: 10rem;
 }
 
 .settings-btn {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: #ffffff;
+  background-color: var(--base-color);
   border: none;
   border-radius: 50%;
   font-size: 18px;
@@ -525,17 +628,7 @@ select {
 }
 
 .settings-btn:hover {
-  background-color: #f0f0f0;
-}
-
-body.light-mode {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-body.dark-mode {
-  background-color: #000;
-  color: #ffffff;
+  background-color: var(--base-variant);
 }
 
 .switch {
@@ -560,7 +653,7 @@ body.dark-mode {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--pie-tert);
   transition: 0.4s;
   border-radius: 24px;
 }
@@ -572,13 +665,13 @@ body.dark-mode {
   width: 20px;
   left: 4px;
   bottom: 2px;
-  background-color: white;
+  background-color: var(--base-color);
   transition: 0.4s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: green;
 }
 
 input:checked + .slider:before {
@@ -588,4 +681,71 @@ input:checked + .slider:before {
 #profile-div {
   gap: 2rem;
   padding: 1rem;
+}
+
+#password-div label {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.password-form input {
+  flex-grow: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.cp-input,
+.np-input,
+.rnp-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.password-form label {
+  margin-right: 1rem;
+  font-weight: bold;
+  width: 15rem;
+}
+
+#new-password-button {
+  display: inline-flex;
+  height: 2rem;
+  padding: 0;
+  background-color: var(--cta-color);
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#new-password-button:hover {
+  background-color: var(--cta-hover);
+}
+
+.accordion {
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: var(--base-color);
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-active,
+.accordion:hover {
+  background-color: var(--base-variant);
+}
+
+#create-button {
+  width: 10rem;
 }
