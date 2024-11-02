@@ -1,4 +1,4 @@
-:root {
+.lightmode {
   --base-color: #f5f5f5;
   --base-variant: #ececec;
   --text-color: #111528;
@@ -64,7 +64,7 @@ h2 {
   color: var(--tertiary-color);
 }
 
-#light-switch i:first-child {
+/* #light-switch i:first-child {
   display: block;
 }
 
@@ -77,8 +77,7 @@ h2 {
   display: none;
 }
 
-.darkmode #light-switch i:first-child,
-#deep-switch i:first-child {
+.darkmode #light-switch i:first-child {
   display: none;
 }
 
@@ -109,6 +108,22 @@ h2 {
 }
 
 .deepmode #deep-switch i:last-child {
+  display: none;
+} */
+
+.switches .fa-solid {
+  display: none;
+}
+
+.lightmode .switches #light-switch .fa-solid,
+.darkmode .switches #dark-switch .fa-solid,
+.deepmode .switches #deep-switch .fa-solid {
+  display: block;
+}
+
+.lightmode .switches #light-switch .fa-regular,
+.darkmode .switches #dark-switch .fa-regular,
+.deepmode .switches #deep-switch .fa-regular {
   display: none;
 }
 
