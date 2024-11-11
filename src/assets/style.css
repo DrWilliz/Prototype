@@ -42,7 +42,8 @@
   justify-content: space-between;
 }
 
-html {
+html,
+#app {
   height: 100%;
 }
 
@@ -62,69 +63,6 @@ h1 {
 
 h2 {
   color: var(--tertiary-color);
-}
-
-/* #light-switch i:first-child {
-  display: block;
-}
-
-#light-switch i:last-child {
-  display: none;
-}
-
-#dark-switch i:first-child,
-#deep-switch i:first-child {
-  display: none;
-}
-
-.darkmode #light-switch i:first-child {
-  display: none;
-}
-
-.darkmode #light-switch i:last-child {
-  display: block;
-}
-
-.darkmode #dark-switch i:first-child {
-  display: block;
-}
-
-.darkmode #dark-switch i:last-child {
-  display: none;
-}
-
-.deepmode #dark-switch i:first-child,
-#light-switch i:first-child {
-  display: none;
-}
-
-.deepmode #dark-switch i:last-child,
-#light-switch i:last-child {
-  display: block;
-}
-
-.deepmode #deep-switch i:first-child {
-  display: block;
-}
-
-.deepmode #deep-switch i:last-child {
-  display: none;
-} */
-
-.switches .fa-solid {
-  display: none;
-}
-
-.lightmode .switches #light-switch .fa-solid,
-.darkmode .switches #dark-switch .fa-solid,
-.deepmode .switches #deep-switch .fa-solid {
-  display: block;
-}
-
-.lightmode .switches #light-switch .fa-regular,
-.darkmode .switches #dark-switch .fa-regular,
-.deepmode .switches #deep-switch .fa-regular {
-  display: none;
 }
 
 .loggerDiv {
@@ -497,7 +435,7 @@ td {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 22px;
   width: 22px;
   left: 2px;
@@ -527,7 +465,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
+input[type='text'],
 select {
   padding: 10px;
   border: 1px solid var(--pie-tert);
@@ -675,7 +613,7 @@ select {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 20px;
   width: 20px;
   left: 4px;
