@@ -33,6 +33,19 @@
           <div class="Lcontent"></div>
           <div class="Lcontent"></div>
         </div> -->
+
+        <div class="flex-container" id="home-div">
+          <div class="Lcontent">
+              <h2>Diagram</h2>
+          
+          </div>
+          <div class="Lcontent">
+              <h2>Pie Chart</h2>
+              
+          
+          </div>
+        </div>
+
     <div class="stackList">
       <input
         type="text"
