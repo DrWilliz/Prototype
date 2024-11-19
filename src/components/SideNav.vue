@@ -7,6 +7,7 @@
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/profile">Profile</RouterLink>
     <RouterLink to="/projects">Projects</RouterLink>
+    <RouterLink to="/admin">Admin</RouterLink>
     <a href="login.html">Log out</a>
   </div>
 </template>
