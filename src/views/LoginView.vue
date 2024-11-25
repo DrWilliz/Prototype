@@ -3,14 +3,14 @@
     <div class="login-container">
       <h2>Login</h2>
       <form @submit.prevent="login">
-        <input class="input-field" type="text" name="username" placeholder="Brugernavn" required />
+        <input class="input-field" type="text" name="username" placeholder="Username" required />
         <div class="password-wrapper">
           <input
             class="input-field"
             :type="showPassword ? 'text' : 'password'"
             name="password"
             id="password"
-            placeholder="Adgangskode"
+            placeholder="Password"
             required
           />
           <button type="button" class="toggle-password" @click="showPassword = !showPassword">
@@ -22,7 +22,7 @@
         <button type="submit" class="login-button">Login</button>
       </form>
       <div class="forgot-password">
-        <a href="/passwordchange.html">Glemt adgangskode?</a>
+        <a href="/passwordchange.html">Forgot password?</a>
       </div>
     </div>
   </div>

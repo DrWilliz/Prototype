@@ -1,8 +1,7 @@
 <template>
   <div class="sidenav">
     <div class="jimbojabbo">
-      <img src="/img/cubelab-icon-black.png" alt="Kubelab icon in Black" />
-      <p>Kubelab</p>
+      <img src="/img/logo.png" alt="Kubelab icon in Black" />
     </div>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/profile">Profile</RouterLink>
@@ -14,6 +13,6 @@
 
 <style scoped>
 .router-link-active {
-  background-color: var(--base-variant);
+  background-color: #7C1818;
 }
 </style>
