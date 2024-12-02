@@ -142,6 +142,7 @@ h2 {
 .sidenav {
   max-width: 15rem;
   width: 100%;
+  height: 100%;
   background-color: #9C2424;
   overflow-x: hidden;
   padding: 1rem;
@@ -182,6 +183,62 @@ color: #000;
 .jimbojabbo p {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+/* Burgermenu */
+
+/* Burger menu container */
+.burger-menu-container {
+  display: none;  /* Skjult som standard */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #9C2424;
+  z-index: 1000;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* Burger menu ikon (tre linjer) */
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.burger-menu-logo{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+
+}
+
+.burger-line {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+/* Burger-menu links (skjult som standard) */
+.burger-menu-links {
+  display: flex;  /* Brug display: flex når menuen er åben */
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+  color: #fff;
+  padding: 1rem;
+  width: 100%;
+}
+
+.burger-menu-links a {
+  text-decoration: none;
+  color: #fff;
+  background-color: none;
 }
 
 .main {
@@ -746,4 +803,18 @@ select {
 }
 
 .btn:hover {
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    display: none;  /* Skjuler den oprindelige menu på små skærme */
+  }
+}
+
+
+/* Vis burger menuen kun på små skærme */
+@media (max-width: 768px) {
+  .burger-menu-container {
+    display: block;  /* Vis burger menuen på små skærme */
+  }
 }
