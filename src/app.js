@@ -1,30 +1,17 @@
 import express from 'express'
+import { getUsers } from './models/UserModel.js'
+import { getUserById } from './models/UserModel.js'
 const app = express()
 const PORT = 7000
-// const db = import('/database.js')
-import mysql from 'mysql2/promise'
 
-const db = await mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'KubelabDB',
-  password: 'root',
+app.get('/users', async (req, res) => {
+  const users = await getUsers()
+  return res.send(users)
 })
 
-let users = await db.query('SELECT * FROM `Users`')
-
-console.log(users)
-
-let User_ID = await db.query('SELECT User_ID from `Users`')
-
-console.log(User_ID)
-
-app.get('/users', (req, res) => {
-  return res.send(Object.values(users))
-})
-
-app.get('/users/:User_ID', (req, res) => {
-  return res.send(users[req.params.User_ID])
+app.get('/users/:User_ID', async (req, res) => {
+  const user = await getUserById(req.params.User_ID)
+  return res.send(user)
 })
 
 app.get('/users', (req, res) => {
