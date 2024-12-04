@@ -1,17 +1,19 @@
 import express from 'express'
 const app = express()
 const PORT = 7000
+// const db = import('/database.js') 
 
-let users = {
-  1: {
-    id: '1',
-    username: 'John Doe',
-  },
-  2: {
-    id: '2',
-    username: 'Jane Doe',
-  },
-}
+import mysql from 'mysql2/promise';
+const db = await mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'KubelabDB',
+  password: 'root'
+})
+
+let users = db.query (
+  'SELECT * FROM `users`'
+)
 
 let messages = {
   1: {

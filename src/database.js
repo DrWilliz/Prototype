@@ -2,12 +2,14 @@
 import mysql from 'mysql2/promise';
 
 // Create the connection to database
-const connection = await mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'KubelabDB',
-  password: 'root'
-});
+module.exports = async () => {
+  const db = await mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'KubelabDB',
+    password: 'root'
+  });
+}
 
 // A simple SELECT query
 try {
@@ -20,6 +22,8 @@ try {
 } catch (err) {
   console.log(err);
 }
+
+
 
 // Using placeholders
 // try {
