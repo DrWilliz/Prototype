@@ -5,7 +5,7 @@ import { connection } from './db/database.js'
 import { getUsername, getUsers, getUserPW, getUserById, getUserEmail } from './models/UserModel.js'
 import cors from 'cors'
 const app = express()
-const PORT = 7000
+const PORT = 7777
 const db = await connection().catch((err) => {
   console.error('Database connection failed:', err)
   process.exit(1)
