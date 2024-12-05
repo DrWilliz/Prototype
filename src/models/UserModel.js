@@ -11,3 +11,18 @@ export const getUserById = async (User_ID) => {
   const [rows] = await db.query('SELECT * FROM `Users` WHERE User_ID = ?', [User_ID])
   return rows[0]
 }
+
+export const getUserEmail = async () => {
+  const [rows] = await db.query('SELECT Email FROM `Users`')
+  return rows
+}
+
+export const getUsername = async () => {
+  const [rows] = await db.query('SELECT Name FROM `Users`')
+  return rows
+}
+
+export const getUserPW = async () => {
+  const [rows] = await db.query('SELECT Password FROM `Users`')
+  return rows
+}
