@@ -9,7 +9,7 @@
       <RouterLink to="/profile">Profile</RouterLink>
       <RouterLink to="/projects">Projects</RouterLink>
       <RouterLink to="/admin">Admin</RouterLink>
-      <a href="login.html">Log out</a>
+      <a href="/">Log out</a>
     </div>
 
     <!-- Burger menu (visible only on small screens) -->
@@ -31,7 +31,7 @@
         <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/projects">Projects</RouterLink>
         <RouterLink to="/admin">Admin</RouterLink>
-        <a href="login.html">Log out</a>
+        <a href="/">Log out</a>
       </div>
     </div>
   </div>
@@ -58,4 +58,19 @@ export default {
     },
   },
 };
+
+import axiosInstance from '@/api/axios';
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const logout = async () => {
+   {
+    // Få logout til at kalde til backend
+    const response = await axiosInstance
+    .post<{ status: number }> ('/logout') 
+  
+  }
+}
+    
+
 </script>

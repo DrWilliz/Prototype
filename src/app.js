@@ -111,11 +111,13 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).send('Could not log out')
+      console.error('Session destruction error:', err);
+      return res.status(500).send('Could not log out');
     }
-    res.send('Logged out successfully')
-  })
-})
+    res.clearCookie('connect.sid'); // Clear the session cookie
+    res.status(200).json({ message: 'Logged out successfully!' }); // Inform the frontend
+  });
+});
 
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
