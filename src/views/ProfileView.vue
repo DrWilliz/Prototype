@@ -2,15 +2,7 @@
   <div class="main">
     <div class="flex-container justify-boi">
       <h2 class="Loverskrift2">Profile</h2>
-      <div class="icons">
-        <!-- <a href="notifications.html" class="icon-button">
-              <i class="fa-solid fa-bell"></i>
-              <span class="icon-button__badge">2</span>
-            </a> -->
-        <a href="profile.html" class="icon-button">
-          <i class="fa-solid fa-user"></i>
-        </a>
-      </div>
+    
     </div>
     <div class="Lcontent flex-container" id="profile-div">
       <div class="profile-pic">

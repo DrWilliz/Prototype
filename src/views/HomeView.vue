@@ -8,15 +8,7 @@
     </div>
     <div class="flex-container justify-boi">
       <h2 class="Loverskrift2">Home</h2>
-      <div class="icons">
-        <!-- <a href="notifications.html" class="icon-button">
-              <i class="fa-solid fa-bell"></i>
-              <span class="icon-button__badge">2</span>
-            </a> -->
-        <button type="button" class="icon-button">
-          <i class="fa-solid fa-user"></i>
-        </button>
-      </div>
+
     </div>
 
     <!-- <div class="flex-container" id="home-div">
