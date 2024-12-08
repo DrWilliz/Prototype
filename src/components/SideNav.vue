@@ -9,7 +9,7 @@
       <RouterLink to="/profile">Profile</RouterLink>
       <RouterLink to="/projects">Projects</RouterLink>
       <RouterLink to="/admin">Admin</RouterLink>
-      <a href="/">Log out</a>
+      <a href="/" @click.prevent="handleLogout">Log out</a>
     </div>
 
     <!-- Burger menu (visible only on small screens) -->
@@ -31,7 +31,7 @@
         <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/projects">Projects</RouterLink>
         <RouterLink to="/admin">Admin</RouterLink>
-        <a href="/">Log out</a>
+        <a href="/" @click.prevent="logout">Log out</a>
       </div>
     </div>
   </div>
@@ -59,21 +59,23 @@ export default {
   },
 }
 
+  
 const logout = async () => {
-  try {
-    const response = await axiosInstance.post('/logout')
-    if (response.status === 200) {
-      // Clear cookies
+      try {
+        // Kalder backend logout endpoint
+        const response = await axiosInstance.post('/logout');
+        if (response.status === 200) {
+          // Gør opmærksom på at parent eller andre komponenter
+          emit('logout');
 
-      // Emit logout event
-      emits('logout')
-    }
-  } catch (error) {
-    console.error('Logout failed:', error)
-    throw new Error('Logout failed. Please try again.')
-  }
+          // Redirect brugeren til login siden
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Logout failed:', error);
+        alert('Logout failed. Please try again.');
+      }
+    };
+  
 
-  // Redirect the user to the login page
-  window.location.href = '/login'
-}
 </script>
