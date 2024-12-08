@@ -3,12 +3,12 @@
     <h2>Create user</h2>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
-        <label for="username">E-mail:</label>
-        <input type="text" id="username" v-model="userData.username" required />
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" v-model="userData.Email" required />
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="userData.password" required />
+        <input type="password" id="password" v-model="userData.Password" required />
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm password:</label>
@@ -20,11 +20,12 @@
         />
       </div>
       <div class="form-group">
-        <label for="role">Role:</label>
-        <select id="role" v-model="userData.role" required>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
+        <label for="name">Name:</label>
+        <input type="text" id="name" v-model="userData.Name" required />
+      </div>
+      <div class="form-group">
+        <label for="isAdmin">Admin:</label>
+        <input type="checkbox" id="isAdmin" v-model="userData.isAdmin" />
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -33,29 +34,44 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       userData: {
-        username: '',
-        password: '',
-        role: 'user',
+        Email: '',
+        Password: '',
+        isAdmin: false,  // Default value
+        Name: '',
       },
+      confirmPassword: '',
+      errorMessage: '',
     };
   },
   methods: {
     async handleSubmit() {
+      // Tjek om passwordene matcher
+      if (this.userData.Password !== this.confirmPassword) {
+        this.errorMessage = 'Passwords do not match!';
+        return;
+      }
+
       try {
-        await this.$emit('create-user', this.userData);
-        alert('Brugeren blev oprettet!');
+        // Send data til backend API
+        const response = await axios.post('http://localhost:3000/create-user', this.userData);
+        
+        // Håndter svar fra API
+        if (response.data.success) {
+          alert(response.data.success);
+        } else if (response.data.error) {
+          this.errorMessage = response.data.error;
+        }
       } catch (err) {
-        alert('Fejl under oprettelse af bruger: ' + err.message);
+        this.errorMessage = 'Fejl ved oprettelse af bruger: ' + err.message;
+        console.error(err);
       }
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>
