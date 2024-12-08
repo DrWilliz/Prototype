@@ -111,13 +111,13 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error('Session destruction error:', err);
-      return res.status(500).send('Could not log out');
+      console.error('Session destruction error:', err)
+      return res.status(500).send('Could not log out')
     }
-    res.clearCookie('connect.sid'); // Clear the session cookie
-    res.status(200).json({ message: 'Logged out successfully!' }); // Inform the frontend
-  });
-});
+    res.clearCookie('connect.sid') // Clear the session cookie
+    res.status(200).json({ message: 'Logged out successfully!' }) // Inform the frontend
+  })
+})
 
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
@@ -133,9 +133,48 @@ app.get('/protected-route', isAuthenticated, (req, res) => {
   res.send('Access granted')
 })
 
+app.post('/create-user', (req, res) => {
+  console.log('Received request body:', req.body)
+  console.log('Request headers:', req.headers)
+
+  bcrypt.hash(req.body.Password, 10, (err, hashedPassword) => {
+    if (err) {
+      console.error('Hashing error:', err)
+      return res.status(500).json({ error: 'Password hashing failed' })
+    }
+
+    console.log('Hashed Password:', hashedPassword)
+
+    const { Email, Password, isAdmin, Name } = req.body
+
+    const sql = 'INSERT INTO Users (Email, Password, isAdmin, Name) VALUES (?, ?, ?, ?)'
+    db.query(sql, [Email, hashedPassword, isAdmin || false, Name], (queryErr, result) => {
+      if (queryErr) {
+        console.error('Detailed Insertion error:', queryErr)
+        return res.status(500).json({
+          error: 'User creation failed',
+          details: queryErr.message,
+          sqlMessage: queryErr.sqlMessage,
+        })
+      }
+
+      console.log('User creation result:', result)
+      res.status(201).json({ success: 'User created', result })
+    })
+  })
+})
+
 export default app
 
 app.listen(PORT, () => {
   console.log(`We are listening. ${PORT}`)
   console.log('Database connected:', db !== null)
+})
+
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err)
+  res.status(500).json({
+    error: 'Unexpected server error',
+    details: err.message,
+  })
 })

@@ -12,12 +12,7 @@
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          v-model="confirmPassword"
-          required
-        />
+        <input type="password" id="confirmPassword" v-model="confirmPassword" required />
       </div>
       <div class="form-group">
         <label for="name">Name:</label>
@@ -34,7 +29,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
+import axiosInstance from '@/api/axios'
 
 export default {
   data() {
@@ -42,36 +38,36 @@ export default {
       userData: {
         Email: '',
         Password: '',
-        isAdmin: false,  // Default value
+        isAdmin: false, // Default value
         Name: '',
       },
       confirmPassword: '',
       errorMessage: '',
-    };
+    }
   },
   methods: {
     async handleSubmit() {
       // Tjek om passwordene matcher
       if (this.userData.Password !== this.confirmPassword) {
-        this.errorMessage = 'Passwords do not match!';
-        return;
+        this.errorMessage = 'Passwords do not match!'
+        return
       }
 
       try {
         // Send data til backend API
-        const response = await axios.post('http://localhost:3000/create-user', this.userData);
-        
+        const response = await axiosInstance.post('/create-user', this.userData)
+
         // Håndter svar fra API
         if (response.data.success) {
-          alert(response.data.success);
+          alert(response.data.success)
         } else if (response.data.error) {
-          this.errorMessage = response.data.error;
+          this.errorMessage = response.data.error
         }
       } catch (err) {
-        this.errorMessage = 'Fejl ved oprettelse af bruger: ' + err.message;
-        console.error(err);
+        this.errorMessage = 'Fejl ved oprettelse af bruger: ' + err.message
+        console.error(err)
       }
     },
   },
-};
+}
 </script>
