@@ -9,7 +9,7 @@
       <RouterLink to="/profile">Profile</RouterLink>
       <RouterLink to="/projects">Projects</RouterLink>
       <RouterLink to="/admin">Admin</RouterLink>
-      <a href="/">Log out</a>
+      <a href="/" @click.prevent="logout">Log out</a>
     </div>
 
     <!-- Burger menu (visible only on small screens) -->
@@ -59,18 +59,24 @@ export default {
   },
 };
 
-import axiosInstance from '@/api/axios';
-import { useRouter } from 'vue-router';
-const router = useRouter()
-
 const logout = async () => {
-   {
-    // Få logout til at kalde til backend
-    const response = await axiosInstance
-    .post<{ status: number }> ('/logout') 
-  
-  }
-}
-    
+  try {
+    const response = await axiosInstance.post('/logout');
+    if (response.status === 200) {
+      // Clear cookies
+      document.cookie.split(";").forEach(
+        cookie => (document.cookie = `${cookie.split("=")[0]}=; path=/;`)
+      );
 
+      // Emit logout event
+      emits('logout');
+    }
+  } catch (error) {
+    console.error('Logout failed:', error);
+    throw new Error('Logout failed. Please try again.');
+  }
+
+     // Redirect the user to the login page
+     window.location.href = '/login';
+};
 </script>
