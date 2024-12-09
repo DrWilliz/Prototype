@@ -9,7 +9,7 @@
       <RouterLink to="/profile">Profile</RouterLink>
       <RouterLink to="/projects">Projects</RouterLink>
       <RouterLink to="/admin">Admin</RouterLink>
-      <a href="/" @click.prevent="handleLogout">Log out</a>
+      <a href="/" @click="logout">Log out</a>
     </div>
 
     <!-- Burger menu (visible only on small screens) -->
@@ -43,24 +43,33 @@
 }
 </style>
 
-<script>
-export default {
-  data() {
-    return {
-      isMenuOpen: false, // Menuens status
-    }
-  },
-  methods: {
-    toggleMenu() {
-      console.log('toggleMenu called') // Tjek om metoden bliver kaldt
-      this.isMenuOpen = !this.isMenuOpen
-      console.log('Menu state is now:', this.isMenuOpen) // Tjek værdien af isMenuOpen
-    },
-  },
-}
+<script setup>
+import { useRouter } from 'vue-router'
+import axiosInstance from '@/api/axios'
+import {ref} from 'vue'
+
+// const emits = defineEmits(['logout'])
+const router = useRouter()
+const logo = ref('') 
+
+// export default {
+//   data() {
+//     return {
+//       isMenuOpen: false, // Menuens status
+//     }
+//   },
+//   methods: {
+//     toggleMenu() {
+//       console.log('toggleMenu called') // Tjek om metoden bliver kaldt
+//       this.isMenuOpen = !this.isMenuOpen
+//       console.log('Menu state is now:', this.isMenuOpen) // Tjek værdien af isMenuOpen
+//     },
+//   },
+//   }
 
   
 const logout = async () => {
+     console.log ("help");
       try {
         // Kalder backend logout endpoint
         const response = await axiosInstance.post('/logout');
@@ -69,7 +78,7 @@ const logout = async () => {
           emit('logout');
 
           // Redirect brugeren til login siden
-          router.push('/login');
+          // router.push('/login');
         }
       } catch (error) {
         console.error('Logout failed:', error);
