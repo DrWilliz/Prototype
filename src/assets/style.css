@@ -65,6 +65,7 @@ h1 {
 
 h2 {
   color: var(--tertiary-color);
+  text-align: center;
 }
 
 /* Login styles */
@@ -815,6 +816,7 @@ select {
   background-color: var(--cta-hover);
 }
 
+
 @media (max-width: 768px) {
   .sidenav {
     display: none;  /* Skjuler den oprindelige menu på små skærme */
@@ -828,3 +830,80 @@ select {
     display: block;  /* Vis burger menuen på små skærme */
   }
 }
+
+
+/* Styling for container */
+.user-list-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th {
+  background-color: #9C2424;
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.user-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd; /* Grå kant for cellerne */
+  font-size: 14px;
+}
+
+/* Alternativ række-baggrund */
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effekt på rækken */
+.user-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Slet knap */
+.delete-btn {
+  background-color: #f44336; /* Rød baggrund */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f; /* Mørkere rød ved hover */
+}
+
+.delete-btn:focus {
+  outline: none; /* Fjerner fokusmarkeringen fra knappen */
+}
+
+/* Responsiv design */
+@media (max-width: 768px) {
+  .user-table {
+    font-size: 12px;
+  }
+
+  .user-table th, .user-table td {
+    padding: 8px;
+  }
+
+  .delete-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
