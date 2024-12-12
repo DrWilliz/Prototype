@@ -816,23 +816,6 @@ select {
   background-color: var(--cta-hover);
 }
 
-
-@media (max-width: 768px) {
-  .sidenav {
-    display: none;  /* Skjuler den oprindelige menu på små skærme */
-  }
-}
-
-
-/* Vis burger menuen kun på små skærme */
-@media (max-width: 768px) {
-  .burger-menu-container {
-    display: block;  /* Vis burger menuen på små skærme */
-  }
-}
-
-
-/* Styling for container */
 .user-list-container {
   max-width: 1000px;
   margin: auto;
@@ -893,6 +876,11 @@ select {
 
 /* Responsiv design */
 @media (max-width: 768px) {
+  .sidenav {
+    display: none;  /* Skjuler den oprindelige menu på små skærme */
+  }
+  .burger-menu-container {
+    display: block;  /* Vis burger menuen på små skærme */
   .user-table {
     font-size: 12px;
   }

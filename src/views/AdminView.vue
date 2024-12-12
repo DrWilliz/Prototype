@@ -34,7 +34,7 @@
         <tr>
           <th>UserId</th>
           <th>Email</th>
-          <th>Navn</th>
+          <th>Name</th>
           <th>Admin</th>
           <th>Handling</th>
         </tr>
@@ -44,9 +44,9 @@
           <td>{{ user.UserId }}</td>
           <td>{{ user.Email }}</td>
           <td>{{ user.Name }}</td>
-          <td>{{ user.IsAdmin ? 'Ja' : 'Nej' }}</td>
+          <td>{{ user.IsAdmin ? 'Yes' : 'No' }}</td>
           <td>
-            <button class="delete-btn" @click="deleteUser(user.UserId)">Slet</button>
+            <button class="delete-btn" @click="deleteUser(user.UserId)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -64,74 +64,90 @@ export default {
       userData: {
         Email: '',
         Password: '',
-        isAdmin: false, // Default værdi
+        isAdmin: false,
         Name: '',
       },
       confirmPassword: '',
       errorMessage: '',
-      users: [], // Brugerlisten
+      users: [],
     };
   },
   mounted() {
-    this.fetchUsers(); // Hent brugere, når komponenten er mountet
+    this.fetchUsers();
   },
   methods: {
-    // Håndter brugeroprettelse
     async handleSubmit() {
-      // Tjek om passwordene matcher
+      // Check if passwords match
       if (this.userData.Password !== this.confirmPassword) {
         this.errorMessage = 'Passwords do not match!';
         return;
       }
 
       try {
-        // Send data til backend API
+        // Send data to backend API
         const response = await axiosInstance.post('/create-user', this.userData);
 
-        // Håndter svar fra API
+        // Handle API response
         if (response.data.success) {
           alert(response.data.success);
+          // Reset form and fetch updated user list
+          this.resetForm();
+          this.fetchUsers();
         } else if (response.data.error) {
           this.errorMessage = response.data.error;
         }
       } catch (err) {
-        this.errorMessage = 'Fejl ved oprettelse af bruger: ' + err.message;
+        this.errorMessage = 'Error creating user: ' + err.message;
         console.error(err);
       }
     },
 
-    // Hent brugere fra backend
+    // Fetch users from backend
     async fetchUsers() {
       try {
         const response = await axiosInstance.get('/users');
-        this.users = response.data; // Opdaterer brugerlisten med data fra backend
+        this.users = response.data;
       } catch (error) {
-        console.error('Fejl ved hentning af brugere', error);
+        console.error('Error fetching users', error);
+        alert('Failed to fetch users');
       }
     },
 
-    // Slet bruger
+    // Delete user
     async deleteUser(userId) {
-      const confirmDelete = confirm('Er du sikker på, at du vil slette denne bruger?');
+      const confirmDelete = confirm('Are you sure you want to delete this user?');
       if (confirmDelete) {
         try {
-          console.log(`Sletter bruger med ID: ${userId}`);
+          console.log(`Deleting user with ID: ${userId}`);
 
           const response = await axiosInstance.delete(`/users/${userId}`);
-          console.log('Delete response:', response);
 
           if (response.status === 200 || response.status === 204) {
-            alert('Bruger blev slettet');
-            this.fetchUsers(); // Opdater brugerlisten efter sletning
+            alert('User successfully deleted');
+            // Refresh the user list
+            this.fetchUsers();
           } else {
-            alert('Fejl ved sletning af bruger');
+            alert('Failed to delete user');
           }
         } catch (error) {
-          console.error('Fejl ved netværksanmodning', error);
-          alert('Fejl ved sletning af bruger');
+          console.error('Network request error', error);
+          alert('Error deleting user');
         }
       }
     },
+
+    // Reset form after successful user creation
+    resetForm() {
+      this.userData = {
+        Email: '',
+        Password: '',
+        isAdmin: false,
+        Name: '',
+      };
+      this.confirmPassword = '';
+      this.errorMessage = '';
+    }
   },
 };
+
 </script>
