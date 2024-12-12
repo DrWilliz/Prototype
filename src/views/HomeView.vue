@@ -8,7 +8,6 @@
     </div>
     <div class="flex-container justify-boi">
       <h2 class="Loverskrift2">Home</h2>
-
     </div>
 
     <!-- <div class="flex-container" id="home-div">
@@ -26,17 +25,14 @@
           <div class="Lcontent"></div>
         </div> -->
 
-        <div class="flex-container" id="home-div">
-          <div class="Lcontent">
-              <h2>Diagram</h2>
-          
-          </div>
-          <div class="Lcontent">
-              <h2>Pie Chart</h2>
-              
-          
-          </div>
-        </div>
+    <div class="flex-container" id="home-div">
+      <div class="Lcontent">
+        <h2>Diagram</h2>
+      </div>
+      <div class="Lcontent">
+        <h2>Pie Chart</h2>
+      </div>
+    </div>
 
     <div class="stackList">
       <input
@@ -126,6 +122,7 @@
 import ProjectRow from '@/components/ProjectRow.vue'
 import type { IProject } from '@/types/project'
 import { computed, ref } from 'vue'
+import axiosInstance from '@/api/axios'
 
 const searchInput = ref('')
 
@@ -170,4 +167,15 @@ const searchedProjects = computed<IProject[]>(() => {
     return data.includes(searchInput.value.toLowerCase())
   })
 })
+
+async function getStacks() {
+  console.log('It just works')
+  try {
+    await axiosInstance.get('/projects')
+  } catch (error) {
+    console.error('Fetching failed:', error)
+  }
+}
+
+window.onload = getStacks
 </script>

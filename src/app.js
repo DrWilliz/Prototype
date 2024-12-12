@@ -4,6 +4,9 @@ import bcrypt from 'bcrypt'
 import { connection } from './db/database.js'
 import { getUsername, getUsers, getUserPW, getUserById, getUserEmail } from './models/UserModel.js'
 import cors from 'cors'
+import axios from 'axios'
+import https from 'https'
+import { sendPortainerToken } from './controllers/tokenController.js'
 const app = express()
 const PORT = 7777
 const db = await connection().catch((err) => {
@@ -11,6 +14,7 @@ const db = await connection().catch((err) => {
   process.exit(1)
 })
 const router = express.Router()
+const url = 'https://portainer.kubelab.dk/api'
 app.use(
   cors({
     origin: 'http://localhost:5173', // Allow only the frontend origin (Vue)
@@ -78,6 +82,21 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body
   console.log(req)
   try {
+    const portainerRes = await axios.post(
+      'https://portainer.kubelab.dk/api/auth',
+      {
+        username: 'Xanderco',
+        password: 'Bulkmasterbu1u',
+      },
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      },
+    )
+
+    const portainerToken = portainerRes.data.jwt
+
     const [results] = await db.query('SELECT * FROM Users WHERE Email = ?', [email])
 
     if (results.length === 0) {
@@ -97,6 +116,7 @@ router.post('/login', async (req, res) => {
       req.session.userId = user.User_ID
       req.session.userName = user.Name
       req.session.isAdmin = user.IsAdmin
+      req.session.portainerToken = portainerToken
 
       res.status(200).send('Login successful')
     } else {
@@ -105,6 +125,32 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Login route error:', error)
     res.status(500).send('Server error during login')
+  }
+})
+
+app.get('/projects', sendPortainerToken, async (req, res) => {
+  try {
+    const response = await axios.get(`${url}/stacks`, {
+      headers: {
+        Authorization: `Bearer ${req.portainerToken}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    })
+    console.log('Projects:', response.data)
+    res.json(response.data)
+  } catch (error) {
+    console.error('Detailed Error Fetching Stacks:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers,
+    })
+    res.status(500).json({
+      message: 'Error fetching stacks',
+      details: error.message,
+    })
   }
 })
 
