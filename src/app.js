@@ -7,6 +7,7 @@ import cors from 'cors'
 import axios from 'axios'
 import https from 'https'
 import { sendPortainerToken } from './controllers/tokenController.js'
+import { syncProjectsToDatabase } from './controllers/portainerController.js'
 const app = express()
 const PORT = 7777
 const db = await connection().catch((err) => {
@@ -58,9 +59,17 @@ app.get('/names', async (req, res) => {
   return res.send(name)
 })
 
-app.get('/passwords', async (req, res) => {
-  const password = await getUserPW()
-  return res.send(password)
+app.get('/database-projects', async (req, res) => {
+  try {
+    const [projects] = await db.query('SELECT * FROM Stacks')
+    res.json(projects)
+  } catch (error) {
+    console.error('Error fetching projects from database:', error)
+    res.status(500).json({
+      message: 'Error fetching projects',
+      details: error.message,
+    })
+  }
 })
 
 router.post('/register', async (req, res) => {
@@ -128,6 +137,32 @@ router.post('/login', async (req, res) => {
   }
 })
 
+// app.get('/projects', sendPortainerToken, async (req, res) => {
+//   try {
+//     const response = await axios.get(`${url}/stacks`, {
+//       headers: {
+//         Authorization: `Bearer ${req.portainerToken}`,
+//       },
+//       httpsAgent: new https.Agent({
+//         rejectUnauthorized: false,
+//       }),
+//     })
+//     console.log('Projects:', response.data)
+//     res.json(response.data)
+//   } catch (error) {
+//     console.error('Detailed Error Fetching Stacks:', {
+//       message: error.message,
+//       response: error.response?.data,
+//       status: error.response?.status,
+//       headers: error.response?.headers,
+//     })
+//     res.status(500).json({
+//       message: 'Error fetching stacks',
+//       details: error.message,
+//     })
+//   }
+// })
+
 app.get('/projects', sendPortainerToken, async (req, res) => {
   try {
     const response = await axios.get(`${url}/stacks`, {
@@ -138,8 +173,15 @@ app.get('/projects', sendPortainerToken, async (req, res) => {
         rejectUnauthorized: false,
       }),
     })
-    console.log('Projects:', response.data)
-    res.json(response.data)
+
+    // Sync projects to database
+    const syncResult = await syncProjectsToDatabase(db, response.data)
+
+    // Return the projects and sync result
+    res.json({
+      projects: response.data,
+      syncResult: syncResult,
+    })
   } catch (error) {
     console.error('Detailed Error Fetching Stacks:', {
       message: error.message,

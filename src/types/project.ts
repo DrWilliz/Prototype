@@ -3,6 +3,6 @@ export interface IProject {
   name: string
   author: string
   createdAt: string
-  subdomain: string
+  template: string
   status: boolean
 }

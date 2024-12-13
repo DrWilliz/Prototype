@@ -3,7 +3,7 @@
     <td>{{ project.name }}</td>
     <td>{{ project.author }}</td>
     <td>{{ project.createdAt }}</td>
-    <td>{{ project.subdomain }}</td>
+    <td>{{ project.template }}</td>
     <td>
       <span class="status" :class="checked ? 'active' : 'inactive'">
         {{ checked ? 'Active' : 'Inactive' }}

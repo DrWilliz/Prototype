@@ -121,45 +121,28 @@
 <script setup lang="ts">
 import ProjectRow from '@/components/ProjectRow.vue'
 import type { IProject } from '@/types/project'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import axiosInstance from '@/api/axios'
 
 const searchInput = ref('')
+const projects = ref<IProject[]>([])
 
-const projects = ref<IProject[]>([
-  {
-    id: 1,
-    name: 'Project 1',
-    author: 'Maria Anders',
-    createdAt: '06-03-2025',
-    subdomain: 'examflow2025',
-    status: true,
-  },
-  {
-    id: 2,
-    name: 'Project 2',
-    author: 'Francisco Chang',
-    createdAt: '07-03-2025',
-    subdomain: 'exam-project-2025',
-    status: true,
-  },
-  {
-    id: 3,
-    name: 'Project 3',
-    author: 'John Doe',
-    createdAt: '07-10-2024',
-    subdomain: 'FSH2024',
-    status: false,
-  },
-  {
-    id: 4,
-    name: 'Project 4',
-    author: 'Jane Doe',
-    createdAt: '16-11-2025',
-    subdomain: 'lastone',
-    status: false,
-  },
-])
+async function getProjects() {
+  try {
+    await axiosInstance.get('/projects')
+    const response = await axiosInstance.get('/database-projects')
+    projects.value = response.data.map((project: any) => ({
+      id: project.Stack_ID,
+      name: project.Name,
+      author: project.Author,
+      createdAt: project.Date,
+      template: '',
+      status: project.Status === 1,
+    }))
+  } catch (error) {
+    console.error('Fetching projects failed. Miserably:', error)
+  }
+}
 
 const searchedProjects = computed<IProject[]>(() => {
   return projects.value.filter((project) => {
@@ -169,13 +152,15 @@ const searchedProjects = computed<IProject[]>(() => {
 })
 
 async function getStacks() {
-  console.log('It just works')
   try {
-    await axiosInstance.get('/projects')
+    const response = await axiosInstance.get('/projects')
+    console.log('Projects:', response.data.projects)
+    console.log('Sync Result:', response.data.syncResult)
   } catch (error) {
     console.error('Fetching failed:', error)
   }
 }
 
 window.onload = getStacks
+onMounted(getProjects)
 </script>

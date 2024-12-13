@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 04, 2024 at 02:28 PM
--- Server version: 8.4.2
--- PHP Version: 8.2.23
+-- Generation Time: Dec 13, 2024 at 04:21 AM
+-- Server version: 8.4.3
+-- PHP Version: 8.2.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,9 @@ CREATE TABLE `Stacks` (
   `Stack_ID` int NOT NULL,
   `Author` varchar(255) NOT NULL,
   `Date` datetime NOT NULL,
-  `Template_ID` int NOT NULL
+  `Template_ID` int DEFAULT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -113,12 +115,6 @@ ALTER TABLE `UserStacks`
 --
 
 --
--- AUTO_INCREMENT for table `Stacks`
---
-ALTER TABLE `Stacks`
-  MODIFY `Stack_ID` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `Templates`
 --
 ALTER TABLE `Templates`
@@ -128,7 +124,7 @@ ALTER TABLE `Templates`
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `User_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `User_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
