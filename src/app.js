@@ -266,3 +266,39 @@ app.use((err, req, res, next) => {
     details: err.message,
   })
 })
+
+//app.use(express.json());
+//app.use(
+  //session({
+    //secret: 'your-secret-key', // Use a strong secret key
+    //resave: false,
+    //saveUninitialized: true,
+  //})
+//);
+
+// Simulated user database
+//const users = [
+  //{ id: 1, name: 'John Doe', email: 'johndoe@example.com' },
+  //{ id: 2, name: 'Jane Doe', email: 'janedoe@example.com' },
+//];
+
+// Login endpoint (for setting session)
+//app.post('/login', (req, res) => {
+  //const { email } = req.body;
+  //const user = users.find((u) => u.email === email);
+  //if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+
+  //req.session.userId = user.id; // Save user ID in the session
+  //res.status(200).json({ message: 'Login successful' });
+//});
+
+// Profile endpoint (to fetch user data)
+//app.get('/profile', (req, res) => {
+  //const userId = req.session.userId;
+  //if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+  //const user = users.find((u) => u.id === userId);
+  //if (!user) return res.status(404).json({ message: 'User not found' });
+
+  //res.json({ name: user.name, email: user.email });
+//});

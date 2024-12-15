@@ -74,7 +74,7 @@ const logout = async () => {
         // Kalder backend logout endpoint
         const response = await axiosInstance.post('/logout');
         if (response.status === 200) {
-          // Gør opmærksom på at parent eller andre komponenter
+          // Gør opmærksom på parent eller andre komponenter
           emit('logout');
 
           // Redirect brugeren til login siden
