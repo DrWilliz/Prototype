@@ -109,21 +109,6 @@ function previewProfilePicture(event: Event) {
     reader.readAsDataURL(file)
   }
 }
-//const user = ref({
-  //name: '',
-  //email: '',
-//})
-// Fetch user profile from the backend
-//const UserProfile = async () => {
-  //try {
-    //const response = await axiosInstance.get('/profile'); // API call to fetch user data
-    //user.value = response.data; // Assign response data to the user object
-  //} catch (error) {
-    //console.error('Failed to fetch profile:', error);
-  //}
-//};
-
-
 </script>
 
 <style scoped>
