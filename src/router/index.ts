@@ -38,6 +38,11 @@ const router = createRouter({
       path: '/newproject',
       name: 'newproject',
       component: NewProject,
+    }, 
+    {
+      path: '/users',
+      name: 'users',
+      component: AdminView,
     },
   ],
 })

@@ -40,13 +40,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users" :key="user.UserId">
-          <td>{{ user.UserId }}</td>
+        <tr v-for="user in users" :key="user.User_ID">
+          <td>{{ user.User_ID }}</td>
           <td>{{ user.Email }}</td>
           <td>{{ user.Name }}</td>
           <td>{{ user.IsAdmin ? 'Yes' : 'No' }}</td>
           <td>
-            <button class="delete-btn" @click="deleteUser(user.UserId)">Delete</button>
+            <button class="delete-btn" @click="deleteUser(user.User_ID)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -107,6 +107,7 @@ export default {
       try {
         const response = await axiosInstance.get('/users');
         this.users = response.data;
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching users', error);
         alert('Failed to fetch users');
@@ -120,7 +121,7 @@ export default {
         try {
           console.log(`Deleting user with ID: ${userId}`);
 
-          const response = await axiosInstance.delete(`/users/${userId}`);
+          const response = await axiosInstance.delete('/users/${userId}');
 
           if (response.status === 200 || response.status === 204) {
             alert('User successfully deleted');

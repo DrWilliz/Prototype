@@ -12,6 +12,10 @@ export const getUserById = async (User_ID) => {
   return rows[0]
 }
 
+export const deleteUserById = async (User_ID) => {
+await db.query('DELETE FROM `Users` WHERE User_ID = ?', [User_ID])
+}
+
 export const getUserEmail = async () => {
   const [rows] = await db.query('SELECT Email FROM `Users`')
   return rows

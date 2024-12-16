@@ -39,6 +39,20 @@ app.use(
   }),
 )
 app.use(router)
+app.get('/users', async (req, res) => {
+  const users = await getUsers()
+  return res.send(users)
+})
+
+app.get('/users/:User_ID', async (req, res) => {
+  const user = await getUserById(req.params.User_ID)
+  return res.send(user)
+})
+app.delete('/users/:User_ID', async (req, res) => {
+  const user = await deleteUserById(req.params.User_ID)
+  return res.send(user)
+})
+
 
 app.post('/create-stack', sendPortainerToken, async (req, res) => {
   try {
@@ -349,7 +363,6 @@ app.post('/create-user', (req, res) => {
   })
 })
 
-export default app
 
 app.listen(PORT, () => {
   console.log(`We are listening. ${PORT}`)
@@ -364,6 +377,7 @@ app.use((err, req, res, next) => {
   })
 })
 
+export default app
 //app.use(express.json());
 //app.use(
 //session({
