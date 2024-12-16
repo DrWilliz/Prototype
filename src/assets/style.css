@@ -768,12 +768,6 @@ input:checked + .slider:before {
 }
 
 
-.admin-container{
-
-
-
-}
-
 /* Create user */
 
 .create-user {
@@ -888,6 +882,7 @@ select {
   }
   .burger-menu-container {
     display: block;  /* Vis burger menuen på små skærme */
+  }
   .user-table {
     font-size: 12px;
   }
@@ -900,5 +895,9 @@ select {
     padding: 6px 12px;
     font-size: 12px;
   }
+  .flex-container{
+    flex: none;
+  }
+
 }
 
