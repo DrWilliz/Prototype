@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 16, 2024 at 06:11 PM
+-- Generation Time: Dec 16, 2024 at 03:29 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.2.25
 
@@ -41,9 +41,8 @@ CREATE TABLE `Stacks` (
 --
 
 INSERT INTO `Stacks` (`Stack_ID`, `Author`, `Date`, `Template_ID`, `Name`, `Status`) VALUES
-(537, 'xanderco', '2024-12-12', 1, 'johns-big-fat-stack', 1),
-(549, 'xanderco', '2024-12-13', 1, 'johnny-stack', 2),
-(602, 'xanderco', '2024-12-16', 2, 'jschtack', 1);
+(537, 'xanderco', '2024-12-12', NULL, 'johns-big-fat-stack', 1),
+(549, 'xanderco', '2024-12-13', NULL, 'johnny-stack', 2);
 
 -- --------------------------------------------------------
 
@@ -55,14 +54,6 @@ CREATE TABLE `Templates` (
   `Template_ID` int NOT NULL,
   `Name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `Templates`
---
-
-INSERT INTO `Templates` (`Template_ID`, `Name`) VALUES
-(1, 'Nginx'),
-(2, 'Wordpress');
 
 -- --------------------------------------------------------
 
@@ -135,7 +126,7 @@ ALTER TABLE `UserStacks`
 -- AUTO_INCREMENT for table `Templates`
 --
 ALTER TABLE `Templates`
-  MODIFY `Template_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Template_ID` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Users`
