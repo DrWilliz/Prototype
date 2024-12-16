@@ -1,4 +1,5 @@
 <template>
+<div class="admin-container">
   <div class="create-user">
     <h2>Create user</h2>
     <form @submit.prevent="handleSubmit">
@@ -51,6 +52,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </div>
 
 </template>
