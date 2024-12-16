@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 13, 2024 at 04:21 AM
+-- Generation Time: Dec 16, 2024 at 03:29 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.2.25
 
@@ -30,11 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `Stacks` (
   `Stack_ID` int NOT NULL,
   `Author` varchar(255) NOT NULL,
-  `Date` datetime NOT NULL,
+  `Date` date NOT NULL,
   `Template_ID` int DEFAULT NULL,
   `Name` varchar(255) NOT NULL,
   `Status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `Stacks`
+--
+
+INSERT INTO `Stacks` (`Stack_ID`, `Author`, `Date`, `Template_ID`, `Name`, `Status`) VALUES
+(537, 'xanderco', '2024-12-12', NULL, 'johns-big-fat-stack', 1),
+(549, 'xanderco', '2024-12-13', NULL, 'johnny-stack', 2);
 
 -- --------------------------------------------------------
 

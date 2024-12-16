@@ -8,6 +8,7 @@ import axios from 'axios'
 import https from 'https'
 import { sendPortainerToken } from './controllers/tokenController.js'
 import { syncProjectsToDatabase } from './controllers/portainerController.js'
+import { detectTemplateType } from './controllers/portainerController.js'
 const app = express()
 const PORT = 7777
 const db = await connection().catch((err) => {
@@ -39,29 +40,71 @@ app.use(
 )
 app.use(router)
 
-app.get('/users', async (req, res) => {
-  const users = await getUsers()
-  return res.send(users)
+app.post('/create-stack', sendPortainerToken, async (req, res) => {
+  try {
+    await axios.post(`${url}/stacks/create/swarm/string?endpointId=5`, {
+      headers: {
+        Authorization: `Bearer ${req.portainerToken}`,
+      },
+      body: {
+        fromTemplate: false,
+        name: '',
+        stackFileContent: '',
+        swarmId: 'v1pkdou24tzjtncewxhvpmjms',
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    })
+  } catch (error) {
+    console.error('Creating stack failed:', error)
+  }
 })
 
-app.get('/users/:User_ID', async (req, res) => {
-  const user = await getUserById(req.params.User_ID)
-  return res.send(user)
+app.post('/stop', sendPortainerToken, async (req, res) => {
+  try {
+    await axios.post(`${url}/stacks/${req.params.id}/stop`, {
+      headers: {
+        Authorization: `Bearer ${req.portainerToken}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    })
+  } catch (error) {
+    console.error('Stopping stack failed:', error)
+  }
 })
 
-app.get('/emails', async (req, res) => {
-  const email = await getUserEmail()
-  return res.send(email)
-})
-
-app.get('/names', async (req, res) => {
-  const name = await getUsername()
-  return res.send(name)
+app.post('/start', sendPortainerToken, async (req, res) => {
+  try {
+    await axios.post(`${url}/stacks/${req.params.id}/start`, {
+      headers: {
+        Authorization: `Bearer ${req.portainerToken}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    })
+  } catch (error) {
+    console.error('Starting stack failed:', error)
+  }
 })
 
 app.get('/database-projects', async (req, res) => {
   try {
-    const [projects] = await db.query('SELECT * FROM Stacks')
+    const [projects] = await db.query(`
+      SELECT 
+        Stacks.Stack_ID,
+        Stacks.Name,
+        Stacks.Author,
+        Stacks.Date,
+        Stacks.Template_ID,
+        Stacks.Status,
+        Templates.Name AS TemplateName
+      FROM Stacks
+      JOIN Templates ON Stacks.Template_ID = Templates.Template_ID
+    `)
     res.json(projects)
   } catch (error) {
     console.error('Error fetching projects from database:', error)
@@ -72,20 +115,20 @@ app.get('/database-projects', async (req, res) => {
   }
 })
 
-router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body
+// router.post('/register', async (req, res) => {
+//   const { name, email, password } = req.body
 
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const query = 'Insert INTO Users (Name, Email, Password) VALUES (?, ?, ?)'
-    db.query(query, [name, email, hashedPassword], (err, result) => {
-      if (err) throw err
-      res.status(201).send('User Registered')
-    })
-  } catch (error) {
-    res.status(500).send('Error registering user')
-  }
-})
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10)
+//     const query = 'Insert INTO Users (Name, Email, Password) VALUES (?, ?, ?)'
+//     db.query(query, [name, email, hashedPassword], (err, result) => {
+//       if (err) throw err
+//       res.status(201).send('User Registered')
+//     })
+//   } catch (error) {
+//     res.status(500).send('Error registering user')
+//   }
+// })
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
@@ -174,12 +217,35 @@ app.get('/projects', sendPortainerToken, async (req, res) => {
       }),
     })
 
+    // Optional: Fetch composition files for template detection
+    const projectsWithTemplates = await Promise.all(
+      response.data.map(async (project) => {
+        try {
+          const compositionResponse = await axios.get(`${url}/stacks/${project.Id}/file`, {
+            headers: {
+              Authorization: `Bearer ${req.portainerToken}`,
+            },
+            httpsAgent: new https.Agent({
+              rejectUnauthorized: false,
+            }),
+          })
+
+          // Detect template type
+          project.Template = detectTemplateType(compositionResponse.data)
+        } catch (error) {
+          console.error(`Could not fetch composition for project ${project.Id}:`, error)
+          project.Template = 'Unknown'
+        }
+        return project
+      }),
+    )
+
     // Sync projects to database
-    const syncResult = await syncProjectsToDatabase(db, response.data)
+    const syncResult = await syncProjectsToDatabase(db, projectsWithTemplates)
 
     // Return the projects and sync result
     res.json({
-      projects: response.data,
+      projects: projectsWithTemplates,
       syncResult: syncResult,
     })
   } catch (error) {
@@ -191,6 +257,37 @@ app.get('/projects', sendPortainerToken, async (req, res) => {
     })
     res.status(500).json({
       message: 'Error fetching stacks',
+      details: error.message,
+    })
+  }
+})
+
+app.get('/projects/:id/composition', sendPortainerToken, async (req, res) => {
+  try {
+    const response = await axios.get(`${url}/stacks/${req.params.id}/file`, {
+      headers: {
+        Authorization: `Bearer ${req.portainerToken}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    })
+
+    // Detect template type
+    const templateType = detectTemplateType(response.data)
+
+    res.json({
+      compositionFile: response.data,
+      templateType: templateType,
+    })
+  } catch (error) {
+    console.error('Error fetching composition file:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    })
+    res.status(500).json({
+      message: 'Error fetching composition file',
       details: error.message,
     })
   }
@@ -269,36 +366,36 @@ app.use((err, req, res, next) => {
 
 //app.use(express.json());
 //app.use(
-  //session({
-    //secret: 'your-secret-key', // Use a strong secret key
-    //resave: false,
-    //saveUninitialized: true,
-  //})
+//session({
+//secret: 'your-secret-key', // Use a strong secret key
+//resave: false,
+//saveUninitialized: true,
+//})
 //);
 
 // Simulated user database
 //const users = [
-  //{ id: 1, name: 'John Doe', email: 'johndoe@example.com' },
-  //{ id: 2, name: 'Jane Doe', email: 'janedoe@example.com' },
+//{ id: 1, name: 'John Doe', email: 'johndoe@example.com' },
+//{ id: 2, name: 'Jane Doe', email: 'janedoe@example.com' },
 //];
 
 // Login endpoint (for setting session)
 //app.post('/login', (req, res) => {
-  //const { email } = req.body;
-  //const user = users.find((u) => u.email === email);
-  //if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+//const { email } = req.body;
+//const user = users.find((u) => u.email === email);
+//if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
-  //req.session.userId = user.id; // Save user ID in the session
-  //res.status(200).json({ message: 'Login successful' });
+//req.session.userId = user.id; // Save user ID in the session
+//res.status(200).json({ message: 'Login successful' });
 //});
 
 // Profile endpoint (to fetch user data)
 //app.get('/profile', (req, res) => {
-  //const userId = req.session.userId;
-  //if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+//const userId = req.session.userId;
+//if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
-  //const user = users.find((u) => u.id === userId);
-  //if (!user) return res.status(404).json({ message: 'User not found' });
+//const user = users.find((u) => u.id === userId);
+//if (!user) return res.status(404).json({ message: 'User not found' });
 
-  //res.json({ name: user.name, email: user.email });
+//res.json({ name: user.name, email: user.email });
 //});

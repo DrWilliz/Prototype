@@ -7,7 +7,7 @@
       </div>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/profile">Profile</RouterLink>
-      <RouterLink to="/projects">Projects</RouterLink>
+      <!-- <RouterLink to="/projects">Projects</RouterLink> -->
       <RouterLink to="/admin">Admin</RouterLink>
       <a href="/" @click="logout">Log out</a>
     </div>
@@ -29,7 +29,7 @@
       <div v-show="isMenuOpen" class="burger-menu-links">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/projects">Projects</RouterLink>
+        <!-- <RouterLink to="/projects">Projects</RouterLink> -->
         <RouterLink to="/admin">Admin</RouterLink>
         <a href="/" @click.prevent="logout">Log out</a>
       </div>
@@ -46,11 +46,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import axiosInstance from '@/api/axios'
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 // const emits = defineEmits(['logout'])
 const router = useRouter()
-const logo = ref('') 
+const logo = ref('')
 
 // export default {
 //   data() {
@@ -67,24 +67,21 @@ const logo = ref('')
 //   },
 //   }
 
-  
 const logout = async () => {
-     console.log ("help");
-      try {
-        // Kalder backend logout endpoint
-        const response = await axiosInstance.post('/logout');
-        if (response.status === 200) {
-          // Gør opmærksom på parent eller andre komponenter
-          emit('logout');
+  console.log('help')
+  try {
+    // Kalder backend logout endpoint
+    const response = await axiosInstance.post('/logout')
+    if (response.status === 200) {
+      // Gør opmærksom på parent eller andre komponenter
+      emit('logout')
 
-          // Redirect brugeren til login siden
-          // router.push('/login');
-        }
-      } catch (error) {
-        console.error('Logout failed:', error);
-        alert('Logout failed. Please try again.');
-      }
-    };
-  
-
+      // Redirect brugeren til login siden
+      // router.push('/login');
+    }
+  } catch (error) {
+    console.error('Logout failed:', error)
+    alert('Logout failed. Please try again.')
+  }
+}
 </script>

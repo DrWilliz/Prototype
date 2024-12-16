@@ -1,0 +1,28 @@
+<template>
+  <div class="newStack">
+    <h1>New Project</h1>
+    <form id="newProjectForm">
+      <label for="project-name">Project Name:</label>
+      <input
+        type="text"
+        id="project-name"
+        name="project-name"
+        required
+        placeholder="Enter project name"
+      />
+
+      <label for="subdomain">Subdomain:</label>
+      <input type="text" id="subdomain" name="subdomain" required placeholder="Enter subdomain" />
+
+      <label for="template">Select Template:</label>
+      <select id="template" name="template" required>
+        <option value="">Select a template</option>
+        <option value="template1">Template 1</option>
+        <option value="template2">Template 2</option>
+        <option value="template3">Template 3</option>
+      </select>
+
+      <button id="newStackButton" type="submit">Create Project</button>
+    </form>
+  </div>
+</template>
