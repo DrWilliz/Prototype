@@ -81,8 +81,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from 'vue';
-import axiosInstance from '@/api/axios';
 import enableMode from '@/utility/enableMode'
 import { faHeart, faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import {
