@@ -35,7 +35,6 @@
       <div class="stack-button-div">
         <a href="/newproject" id="newStackButton">
           <span class="button-text">New project</span>
-          <span class="button-icon"><i class="fa-solid fa-plus"></i></span>
         </a>
       </div>
     </div>
@@ -55,14 +54,19 @@ async function getProjects() {
   try {
     await axiosInstance.get('/projects')
     const response = await axiosInstance.get('/database-projects')
-    projects.value = response.data.map((project: any) => ({
-      id: project.Stack_ID,
-      name: project.Name,
-      author: project.Author,
-      createdAt: project.Date,
-      template: project.TemplateName,
-      status: project.Status === 1,
-    }))
+    console.log('Raw project data:', response.data) // Add this line
+    projects.value = response.data.map((project: any) => {
+      console.log('Individual project:', project) // Add this line
+      return {
+        id: project.Stack_ID,
+        portainerID: project.Stack_ID, // Ensure this matches exactly with the backend data
+        name: project.Name,
+        author: project.Author,
+        createdAt: project.Date,
+        template: project.TemplateName,
+        status: project.Status === 1,
+      }
+    })
   } catch (error) {
     console.error('Fetching projects failed. Miserably:', error)
   }

@@ -53,31 +53,76 @@ app.delete('/users/:User_ID', async (req, res) => {
   return res.send(user)
 })
 
-
 app.post('/create-stack', sendPortainerToken, async (req, res) => {
   try {
-    await axios.post(`${url}/stacks/create/swarm/string?endpointId=5`, {
+    const response = await axios.post(
+      `${url}/stacks/create/swarm/string`,
+      {
+        fromTemplate: req.body.fromTemplate || false,
+        name: req.body.name,
+        stackFileContent: req.body.stackFileContent,
+        swarmId: req.body.swarmId || 'v1pkdou24tzjtncewxhvpmjms',
+      },
+      {
+        params: {
+          endpointId: 5,
+        },
+        headers: {
+          Authorization: `Bearer ${req.portainerToken}`,
+          'Content-Type': 'application/json',
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      },
+    )
+
+    console.log(response.data)
+    res.status(201).json({
+      message: 'Stack created successfully',
+      data: response.data,
+    })
+  } catch (error) {
+    console.error('Creating stack failed:', error.response?.data || error.message)
+    res.status(500).json({
+      message: 'Failed to create stack',
+      error: error.response?.data || error.message,
+    })
+  }
+})
+
+app.delete('/delete-stack', sendPortainerToken, async (req, res) => {
+  try {
+    const response = await axios({
+      method: 'delete',
+      url: `${url}/stacks/${req.body.id}`,
+      params: {
+        endpointId: 5,
+      },
       headers: {
         Authorization: `Bearer ${req.portainerToken}`,
-      },
-      body: {
-        fromTemplate: false,
-        name: '',
-        stackFileContent: '',
-        swarmId: 'v1pkdou24tzjtncewxhvpmjms',
       },
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
       }),
     })
+
+    res.status(200).send('Stack deleted successfully')
   } catch (error) {
-    console.error('Creating stack failed:', error)
+    console.error('Deleted stack failed:', error.response?.data || error.message)
+    res.status(500).send('Failed to delete stack')
   }
 })
 
 app.post('/stop', sendPortainerToken, async (req, res) => {
+  console.log('Stop request body:', req.body)
   try {
-    await axios.post(`${url}/stacks/${req.params.id}/stop`, {
+    const response = await axios({
+      method: 'post',
+      url: `${url}/stacks/${req.body.id}/stop`,
+      params: {
+        endpointId: 5, // This should match the endpoint ID in Portainer
+      },
       headers: {
         Authorization: `Bearer ${req.portainerToken}`,
       },
@@ -85,14 +130,23 @@ app.post('/stop', sendPortainerToken, async (req, res) => {
         rejectUnauthorized: false,
       }),
     })
+
+    res.status(200).send('Stack stopped successfully')
   } catch (error) {
-    console.error('Stopping stack failed:', error)
+    console.error('Stopping stack failed:', error.response?.data || error.message)
+    res.status(500).send('Failed to stop stack')
   }
 })
 
 app.post('/start', sendPortainerToken, async (req, res) => {
+  console.log('Start request body:', req.body)
   try {
-    await axios.post(`${url}/stacks/${req.params.id}/start`, {
+    const response = await axios({
+      method: 'post',
+      url: `${url}/stacks/${req.body.id}/start`,
+      params: {
+        endpointId: 5, // This should match the endpoint ID in Portainer
+      },
       headers: {
         Authorization: `Bearer ${req.portainerToken}`,
       },
@@ -100,8 +154,11 @@ app.post('/start', sendPortainerToken, async (req, res) => {
         rejectUnauthorized: false,
       }),
     })
+
+    res.status(200).send('Stack started successfully')
   } catch (error) {
-    console.error('Starting stack failed:', error)
+    console.error('Starting stack failed:', error.response?.data || error.message)
+    res.status(500).send('Failed to start stack')
   }
 })
 
@@ -119,6 +176,8 @@ app.get('/database-projects', async (req, res) => {
       FROM Stacks
       JOIN Templates ON Stacks.Template_ID = Templates.Template_ID
     `)
+
+    console.log('Projects from database:', projects)
     res.json(projects)
   } catch (error) {
     console.error('Error fetching projects from database:', error)
@@ -362,7 +421,6 @@ app.post('/create-user', (req, res) => {
     })
   })
 })
-
 
 app.listen(PORT, () => {
   console.log(`We are listening. ${PORT}`)
