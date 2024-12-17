@@ -1,3 +1,6 @@
+.router-link-active {
+  background-color: #7c1818;
+}
 .lightmode {
   --base-color: #f5f5f5;
   --base-variant: #CDCDCD;
@@ -193,7 +196,6 @@ color: #000;
 
 /* Burgermenu */
 
-/* Burger menu container */
 .burger-menu-container {
   display: none;  /* Skjult som standard */
   position: fixed;
@@ -219,8 +221,6 @@ color: #000;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-
-
 }
 
 .burger-line {
@@ -230,9 +230,8 @@ justify-content: space-between;
   border-radius: 3px;
 }
 
-/* Burger-menu links (skjult som standard) */
 .burger-menu-links {
-  display: flex;  /* Brug display: flex når menuen er åben */
+  display: flex; 
   flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
@@ -774,7 +773,6 @@ input:checked + .slider:before {
   width: 300px;
   margin: auto;
   padding: 40px;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f5f5f5;
 }
@@ -817,6 +815,13 @@ select {
   background-color: var(--cta-hover);
 }
 
+.admin-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
 .user-list-container {
   max-width: 1000px;
   margin: auto;
@@ -845,19 +850,16 @@ select {
   font-size: 14px;
 }
 
-/* Alternativ række-baggrund */
 .user-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Hover effekt på rækken */
 .user-table tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Slet knap */
 .delete-btn {
-  background-color: #f44336; /* Rød baggrund */
+  background-color: #9C2424;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -876,28 +878,85 @@ select {
 }
 
 /* Responsiv design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  html{
+  margin-top: 100px;
+
+  }
   .sidenav {
     display: none;  /* Skjuler den oprindelige menu på små skærme */
   }
   .burger-menu-container {
     display: block;  /* Vis burger menuen på små skærme */
   }
-  .user-table {
-    font-size: 12px;
+  .admin-container{
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    }
+  
+  
   }
 
-  .user-table th, .user-table td {
-    padding: 8px;
+@media (max-width: 500px) {
+  .main{
+    padding: 0px;
+
+  }
+  .admin-container{
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .user-list-container {
+    margin-top: 50px;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+  }
+
+  .user-table {
+    overflow-x: auto;
+  }
+
+  .user-table thead {
+    display: none; /* Hides the table header */
+  }
+
+  .user-table tbody tr {
+    margin-bottom: 10px;
+  }
+
+  .user-table td {
+    display: block;
+    text-align: center;
+    padding: 8px 5px;
+    position: relative;
+    border: none; /* Removes borders for a cleaner look */
+  }
+
+  .user-table td::before {
+    content: attr(data-label); /* Adds a label before each value */
+    position: absolute;
+    left: 5px;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: left;
+  }
+
+  .user-table td[data-label="handling"] {
+    text-align: center;
   }
 
   .delete-btn {
-    padding: 6px 12px;
     font-size: 12px;
+    padding: 5px 10px;
+    display: block;
+    margin: 10px auto;
   }
-  .flex-container{
-    flex: none;
-  }
-
 }
+
+
+
+
 

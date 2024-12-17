@@ -2,7 +2,6 @@
   <div class="main">
     <div class="flex-container justify-boi">
       <h2 class="Loverskrift2">Profile</h2>
-    
     </div>
     <div class="Lcontent flex-container" id="profile-div">
       <div class="profile-pic">

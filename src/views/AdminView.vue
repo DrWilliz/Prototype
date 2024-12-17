@@ -1,5 +1,9 @@
 <template>
-<div class="admin-container">
+ <div class="main">
+    <div class="flex-container justify-boi">
+      <h2 class="Loverskrift2">Admin</h2>
+    </div>
+    <div class="admin-container">
   <div class="create-user">
     <h2>Create user</h2>
     <form @submit.prevent="handleSubmit">
@@ -52,6 +56,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </div>
   </div>
 

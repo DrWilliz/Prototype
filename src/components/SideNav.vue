@@ -12,7 +12,7 @@
       <a href="/" @click="logout">Log out</a>
     </div>
 
-    <!-- Burger menu (visible only on small screens) -->
+    <!-- Burger menu -->
     <div class="burger-menu-container">
       <div class="burger-menu-logo">
         <div class="burger-menu" @click="toggleMenu">
@@ -37,47 +37,29 @@
   </div>
 </template>
 
-<style scoped>
-.router-link-active {
-  background-color: #7c1818;
-}
-</style>
-
 <script setup>
 import { useRouter } from 'vue-router'
 import axiosInstance from '@/api/axios'
 import { ref } from 'vue'
 
-// const emits = defineEmits(['logout'])
 const router = useRouter()
-const logo = ref('')
+const isMenuOpen = ref(false) // Menuens status som reactive state
 
-// export default {
-//   data() {
-//     return {
-//       isMenuOpen: false, // Menuens status
-//     }
-//   },
-//   methods: {
-//     toggleMenu() {
-//       console.log('toggleMenu called') // Tjek om metoden bliver kaldt
-//       this.isMenuOpen = !this.isMenuOpen
-//       console.log('Menu state is now:', this.isMenuOpen) // Tjek værdien af isMenuOpen
-//     },
-//   },
-//   }
+// Funktion til at skifte menuens tilstand
+const toggleMenu = () => {
+  console.log('toggleMenu called') // Debugging
+  isMenuOpen.value = !isMenuOpen.value
+  console.log('Menu state is now:', isMenuOpen.value) // Debugging
+}
 
+// Logout-funktion
 const logout = async () => {
   console.log('help')
   try {
-    // Kalder backend logout endpoint
     const response = await axiosInstance.post('/logout')
     if (response.status === 200) {
-      // Gør opmærksom på parent eller andre komponenter
-      emit('logout')
-
       // Redirect brugeren til login siden
-      // router.push('/login');
+      router.push('/login')
     }
   } catch (error) {
     console.error('Logout failed:', error)
