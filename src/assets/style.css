@@ -889,10 +889,16 @@ select {
   .burger-menu-container {
     display: block;  /* Vis burger menuen på små skærme */
   }
+  .burger-menu-links a{
+    font-size: 20px;
+
+  }
+
   .admin-container{
     align-items: center;
     flex-direction: column;
     gap: 50px;
+
     }
   
   
@@ -903,6 +909,18 @@ select {
     padding: 0px;
 
   }
+  .flex-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jimbojabbo img{
+    width: 6rem;
+
+  }
+
+
+
   .admin-container{
     align-items: center;
     flex-direction: column;

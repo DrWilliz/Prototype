@@ -21,7 +21,9 @@
           <div class="burger-line"></div>
         </div>
         <div class="jimbojabbo">
-          <img src="/img/logo.png" alt="Kubelab icon in Black" />
+          <RouterLink to="/">
+    <img src="/img/logo.png" alt="Kubelab icon in Black" />
+            </RouterLink>
         </div>
       </div>
 
