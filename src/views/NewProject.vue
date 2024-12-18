@@ -1,6 +1,6 @@
 <template>
   <div class="newStack">
-    <h1>New Project</h1>
+    <h2>New Project</h2>
     <form @submit.prevent="createProject" id="newProjectForm">
       <label for="project-name">Project Name:</label>
       <input
@@ -27,7 +27,7 @@
         <option value="Wordpress">Wordpress</option>
       </select>
 
-      <button id="newStackButton" type="submit">Create Project</button>
+      <button id="newStackButton" type="submit">Create</button>
     </form>
   </div>
 </template>

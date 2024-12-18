@@ -64,6 +64,7 @@ h1 {
   text-align: center;
   margin-bottom: 20px;
   color: var(--secondary-text);
+
 }
 
 h2 {
@@ -445,11 +446,16 @@ justify-content: space-between;
   width: 100%;
 }
 
+.stackList th {
+  background-color:#9C2424;
+  color: #fff;
+}
+
 .stackList th,
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid var(--pie-tert);
+  border-bottom: 1px solid #ddd;
   min-width: 5rem;
 }
 
@@ -530,25 +536,21 @@ label {
 
 input[type='text'],
 select {
-  padding: 10px;
-  border: 1px solid var(--pie-tert);
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 #newStackButton {
-  display: inline-flex;
-  height: 2.25rem;
-  padding: 0;
-  background-color: var(--cta-color);
+  display: block;
+  padding: 10px;
+  background-color: #9C2424;
   color: white;
   border: none;
-  outline: none;
   border-radius: 4px;
-  overflow: hidden;
   cursor: pointer;
-  font-size: 1.2rem;
-  
-  text-decoration: none;
+  font-size: 16px;
 }
 
 #newStackButton:hover {
@@ -576,11 +578,11 @@ select {
 }
 
 .newStack {
-  width: 25%;
-  margin: 50px auto;
-  background-color: var(--base-color);
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: auto;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
 }
 
 .profile-pic {
@@ -774,7 +776,7 @@ input:checked + .slider:before {
   margin: auto;
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5;
+  background-color: var(--base-color);
 }
 
 .create-user h2 {
@@ -809,6 +811,7 @@ select {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .btn:hover {
@@ -826,7 +829,7 @@ select {
   max-width: 1000px;
   margin: auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: var(--base-color);
 }
 .user-table {
   width: 100%;
@@ -847,7 +850,7 @@ select {
   padding: 12px 15px;
   text-align: left;
   border: 1px solid #ddd; /* Grå kant for cellerne */
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .user-table tr:nth-child(even) {
@@ -865,7 +868,7 @@ select {
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
@@ -883,6 +886,18 @@ select {
   margin-top: 100px;
 
   }
+  
+  .flex-container{
+    justify-content: center;
+
+  }
+  .admin-container{
+    flex-direction: column;
+    gap: 50px;
+
+
+  }
+
   .sidenav {
     display: none;  /* Skjuler den oprindelige menu på små skærme */
   }
@@ -893,16 +908,116 @@ select {
     font-size: 20px;
 
   }
+}
 
-  .admin-container{
-    align-items: center;
-    flex-direction: column;
-    gap: 50px;
-
+  @media (max-width: 600px){
+    .stackList {
+      padding: 10px;
+      width: auto;
     }
   
+    .stackList table {
+      overflow-x: auto;
+    }
   
+    .stackList thead {
+      display: none;
+    }
+  
+    .stackList tbody tr {
+      display: block;
+      margin-bottom: 10px;
+    }
+  
+    .stackList td {
+      display: block;
+      text-align: center;
+      padding: 8px 5px;
+      position: relative;
+    }
+  
+    .stackList td::before {
+      content: attr(data-label); /* Adds labels before each cell value */
+      position: absolute;
+      left: 5px;
+      font-weight: bold;
+      text-transform: capitalize;
+      text-align: left;
+    }
+  
+    .stackList td[data-label="status"] {
+      text-align: center;
+    }
+  
+    .toggle-switch {
+      display: block;
+      margin: 10px auto;
+    }
+  
+    .stack-button-div {
+      text-align: center;
+    }
+  
+    .stack-button-div a {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+    
+    .admin-container{
+      align-items: center;
+      flex-direction: column;
+      gap: 0px;
+  
+      }
+
+    .user-list-container {
+      margin-top: 50px;
+      width: 300px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: #f5f5f5;
+    }
+  
+    .user-table {
+      overflow-x: auto;
+    }
+  
+    .user-table thead {
+      display: none; /* Hides the table header */
+    }
+  
+    .user-table tbody tr {
+      margin-bottom: 10px;
+    }
+  
+    .user-table td {
+      display: block;
+      text-align: center;
+      padding: 8px 5px;
+      position: relative;
+      border: none;
+    }
+  
+    .user-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 5px;
+      font-weight: bold;
+      text-transform: capitalize;
+      text-align: left;
+    }
+  
+    .user-table td[data-label="handling"] {
+      text-align: center;
+    }
+  
+    .delete-btn {
+      font-size: 16px;
+      padding: 5px 10px;
+      display: block;
+      margin: 10px auto;
+    }
   }
+
 
 @media (max-width: 500px) {
   .main{
@@ -911,7 +1026,6 @@ select {
   }
   .flex-container{
     display: flex;
-    flex-direction: column;
   }
 
   .jimbojabbo img{
@@ -919,7 +1033,83 @@ select {
 
   }
 
+  .stackList {
+    padding: 10px;
+    width: auto;
+  }
 
+  .stackList table {
+    overflow-x: auto;
+  }
+
+  .stackList thead {
+    display: none;
+  }
+
+  .stackList tbody tr {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .stackList td {
+    display: block;
+    text-align: center;
+    padding: 8px 5px;
+    position: relative;
+  }
+
+  .stackList td::before {
+    content: attr(data-label); /* Adds labels before each cell value */
+    position: absolute;
+    left: 5px;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: left;
+  }
+
+  .stackList td[data-label="status"] {
+    text-align: center;
+  }
+
+  .toggle-switch {
+    display: block;
+    margin: 10px auto;
+  }
+
+  .stack-button-div {
+    text-align: center;
+  }
+
+  .stack-button-div a {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .admin-container{
+    align-items: center;
+    flex-direction: column;
+    gap: 0px;
+
+    }
+
+  #profile-div{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  #home-div{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  #password-div{
+    display: flex;
+    flex-direction: column;
+
+
+  }
 
   .admin-container{
     align-items: center;
@@ -950,11 +1140,11 @@ select {
     text-align: center;
     padding: 8px 5px;
     position: relative;
-    border: none; /* Removes borders for a cleaner look */
+    border: none;
   }
 
   .user-table td::before {
-    content: attr(data-label); /* Adds a label before each value */
+    content: attr(data-label);
     position: absolute;
     left: 5px;
     font-weight: bold;
@@ -967,7 +1157,7 @@ select {
   }
 
   .delete-btn {
-    font-size: 12px;
+    font-size: 16px;
     padding: 5px 10px;
     display: block;
     margin: 10px auto;
