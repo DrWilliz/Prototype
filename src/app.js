@@ -20,8 +20,8 @@ const url = 'https://portainer.kubelab.dk/api'
 app.use(
   cors({
     origin: 'http://localhost:5173', // Allow only the frontend origin (Vue)
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Ensure methods are allowed
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow custom headers like Authorization
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Ensures methods are allowed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allows custom headers (like authorization)
     credentials: true,
   }),
 )
@@ -121,7 +121,7 @@ app.post('/stop', sendPortainerToken, async (req, res) => {
       method: 'post',
       url: `${url}/stacks/${req.body.id}/stop`,
       params: {
-        endpointId: 5, // This should match the endpoint ID in Portainer
+        endpointId: 5,
       },
       headers: {
         Authorization: `Bearer ${req.portainerToken}`,
@@ -145,7 +145,7 @@ app.post('/start', sendPortainerToken, async (req, res) => {
       method: 'post',
       url: `${url}/stacks/${req.body.id}/start`,
       params: {
-        endpointId: 5, // This should match the endpoint ID in Portainer
+        endpointId: 5,
       },
       headers: {
         Authorization: `Bearer ${req.portainerToken}`,
@@ -187,21 +187,6 @@ app.get('/database-projects', async (req, res) => {
     })
   }
 })
-
-// router.post('/register', async (req, res) => {
-//   const { name, email, password } = req.body
-
-//   try {
-//     const hashedPassword = await bcrypt.hash(password, 10)
-//     const query = 'Insert INTO Users (Name, Email, Password) VALUES (?, ?, ?)'
-//     db.query(query, [name, email, hashedPassword], (err, result) => {
-//       if (err) throw err
-//       res.status(201).send('User Registered')
-//     })
-//   } catch (error) {
-//     res.status(500).send('Error registering user')
-//   }
-// })
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
@@ -253,32 +238,6 @@ router.post('/login', async (req, res) => {
   }
 })
 
-// app.get('/projects', sendPortainerToken, async (req, res) => {
-//   try {
-//     const response = await axios.get(`${url}/stacks`, {
-//       headers: {
-//         Authorization: `Bearer ${req.portainerToken}`,
-//       },
-//       httpsAgent: new https.Agent({
-//         rejectUnauthorized: false,
-//       }),
-//     })
-//     console.log('Projects:', response.data)
-//     res.json(response.data)
-//   } catch (error) {
-//     console.error('Detailed Error Fetching Stacks:', {
-//       message: error.message,
-//       response: error.response?.data,
-//       status: error.response?.status,
-//       headers: error.response?.headers,
-//     })
-//     res.status(500).json({
-//       message: 'Error fetching stacks',
-//       details: error.message,
-//     })
-//   }
-// })
-
 app.get('/projects', sendPortainerToken, async (req, res) => {
   try {
     const response = await axios.get(`${url}/stacks`, {
@@ -290,7 +249,7 @@ app.get('/projects', sendPortainerToken, async (req, res) => {
       }),
     })
 
-    // Optional: Fetch composition files for template detection
+    // Get the composition string for templates
     const projectsWithTemplates = await Promise.all(
       response.data.map(async (project) => {
         try {
@@ -436,38 +395,3 @@ app.use((err, req, res, next) => {
 })
 
 export default app
-//app.use(express.json());
-//app.use(
-//session({
-//secret: 'your-secret-key', // Use a strong secret key
-//resave: false,
-//saveUninitialized: true,
-//})
-//);
-
-// Simulated user database
-//const users = [
-//{ id: 1, name: 'John Doe', email: 'johndoe@example.com' },
-//{ id: 2, name: 'Jane Doe', email: 'janedoe@example.com' },
-//];
-
-// Login endpoint (for setting session)
-//app.post('/login', (req, res) => {
-//const { email } = req.body;
-//const user = users.find((u) => u.email === email);
-//if (!user) return res.status(401).json({ message: 'Invalid credentials' });
-
-//req.session.userId = user.id; // Save user ID in the session
-//res.status(200).json({ message: 'Login successful' });
-//});
-
-// Profile endpoint (to fetch user data)
-//app.get('/profile', (req, res) => {
-//const userId = req.session.userId;
-//if (!userId) return res.status(401).json({ message: 'Unauthorized' });
-
-//const user = users.find((u) => u.id === userId);
-//if (!user) return res.status(404).json({ message: 'User not found' });
-
-//res.json({ name: user.name, email: user.email });
-//});

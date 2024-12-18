@@ -17,7 +17,7 @@ export function detectTemplateType(stackFileContent) {
     parsedFile =
       typeof stackFileContent === 'string' ? JSON.parse(stackFileContent) : stackFileContent
   } catch {
-    // If not JSON, try parsing as YAML
+    // If not JSON, try YAML
     try {
       parsedFile = yaml.load(stackFileContent)
     } catch {
@@ -31,7 +31,7 @@ export function detectTemplateType(stackFileContent) {
   // Detect template based on services
   const serviceImages = Object.values(services).map((service) => service.image?.toLowerCase() || '')
 
-  // Prioritized template detection
+  // Template detection
   if (serviceImages.some((img) => img.includes('wordpress'))) {
     return 2
   } else if (serviceImages.some((img) => img.includes('nginx'))) {
@@ -42,7 +42,7 @@ export function detectTemplateType(stackFileContent) {
     return 4
   } else if (serviceImages.length > 0) {
     // If images exist but no specific match
-    return 5 //Custom Docker Composition
+    return 5 //Custom Docker Composition (3-5 have not been added, just for future)
   }
 
   return null
@@ -50,7 +50,6 @@ export function detectTemplateType(stackFileContent) {
 
 export async function syncProjectsToDatabase(db, portainerProjects) {
   try {
-    // Start a transaction
     await db.beginTransaction()
 
     // Convert and format projects
@@ -72,7 +71,7 @@ export async function syncProjectsToDatabase(db, portainerProjects) {
     const deleteQuery = 'DELETE FROM Stacks WHERE Stack_ID NOT IN (?)'
     await db.query(deleteQuery, [currentPortainerIds])
 
-    // Upsert projects
+    // Upsert (update +/- insert) projects
     for (const project of formattedProjects) {
       const upsertQuery = `
         INSERT INTO Stacks (Name, Author, Status, Date, Stack_ID, Template_ID) 
@@ -92,7 +91,6 @@ export async function syncProjectsToDatabase(db, portainerProjects) {
       ])
     }
 
-    // Commit the transaction
     await db.commit()
 
     return {

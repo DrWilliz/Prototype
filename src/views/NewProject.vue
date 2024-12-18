@@ -42,7 +42,7 @@ const subdomain = ref('')
 const selectedTemplate = ref('')
 
 async function createProject() {
-  // Templates with placeholders
+  // Templates with placeholders (CHANGENAME, SUBDOMAIN)
   const templates = {
     Nginx: `{"networks":{"traefik-proxy":{"external":true}},"services":{"CHANGENAME":{"image":"nginx:latest","networks":["traefik-proxy"],"deploy":{"labels":["traefik.enable=true","traefik.http.routers.CHANGENAME.rule=Host(\`SUBDOMAIN.kubelab.dk\`)","traefik.http.routers.CHANGENAME.entrypoints=web,websecure","traefik.http.routers.CHANGENAME.tls.certresolver=letsencrypt","traefik.http.services.CHANGENAME.loadbalancer.server.port=80"]}}}}`,
     Wordpress:

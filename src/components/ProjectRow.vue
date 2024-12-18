@@ -48,7 +48,7 @@ const router = useRouter()
 async function deleteProject() {
   if (isDeleting.value) return
 
-  // Confirm deletion
+  // Confirm deletion in case they are stupid
   const confirmDelete = window.confirm(
     `Are you sure you want to delete the project "${props.project.name}"?`,
   )
@@ -66,7 +66,6 @@ async function deleteProject() {
 
     // Emit an event to the parent component to remove the project from the list
 
-    // Optional: show a success message
     alert(`Project "${props.project.name}" has been deleted successfully.`)
   } catch (error) {
     console.error('Error deleting project:', error)
@@ -81,11 +80,10 @@ async function toggleProjectStatus() {
   try {
     isToggling.value = true
 
-    // Use Portainer's actual stack ID, not your local database ID
     const endpoint = props.project.status ? '/stop' : '/start'
 
     await axiosInstance.post(endpoint, {
-      id: props.project.portainerID, // You'll need to add this to your IProject interface
+      id: props.project.portainerID,
     })
 
     emit('project-status-changed', {

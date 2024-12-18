@@ -54,12 +54,12 @@ async function getProjects() {
   try {
     await axiosInstance.get('/projects')
     const response = await axiosInstance.get('/database-projects')
-    console.log('Raw project data:', response.data) // Add this line
+    console.log('Raw project data:', response.data)
     projects.value = response.data.map((project: any) => {
-      console.log('Individual project:', project) // Add this line
+      console.log('Individual project:', project)
       return {
         id: project.Stack_ID,
-        portainerID: project.Stack_ID, // Ensure this matches exactly with the backend data
+        portainerID: project.Stack_ID,
         name: project.Name,
         author: project.Author,
         createdAt: project.Date,

@@ -13,10 +13,8 @@ import { inject, onMounted, ref } from 'vue'
 import LoginView from './views/LoginView.vue'
 import router from './router'
 import enableMode, { type Mode } from './utility/enableMode'
-// import { useCookies } from '@vueuse/integrations/useCookies'
 import axiosInstance from './api/axios'
 
-// const cookies = useCookies(['connect.sid'])
 const IsLoggedIn = ref(false)
 
 function loginHome() {
